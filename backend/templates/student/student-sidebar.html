@@ -1,0 +1,95 @@
+{% load static%}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">AdminLTE 3</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">{{user.username}}</a>
+        </div>
+      </div>
+      <!-- Sidebar Menu -->
+      {% url 'student_home' as student_home %}
+      {% url 'student_apply_leave' as student_apply_leave %}
+      {% url 'feedback_student' as feedback_student %}
+      {% url 'student_personal_info' as student_personal_info %}
+      {% url 'view_attendance_student' as view_attendance_student %}
+      {% url 'student_all_notification' as student_all_notification %}
+      {% url 'view_results' as view_results %}
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          
+          <li class="nav-item">
+            <a href="{{student_home}}" class="nav-link {% if request.path == student_home %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Home
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{student_personal_info}}" class="nav-link {% if request.path == student_personal_info %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                student personal info
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{view_attendance_student}}" class="nav-link {% if request.path == view_attendance_student %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                View Attendance
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{student_apply_leave}}" class="nav-link {% if request.path == student_apply_leave %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Student Apply Leave
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{feedback_student}}" class="nav-link {% if request.path == feedback_student %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                feedback
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{student_all_notification}}" class="nav-link {% if request.path == student_all_notification %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                notifications
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{view_results}}" class="nav-link {% if request.path == view_results %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                view results
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

@@ -1,0 +1,66 @@
+{% extends 'student/student-base.html'%}
+{% block main_content %}
+<div class="col-md-12">
+    <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Feedback</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form method="POST" role="form">
+            {% csrf_token %}
+          <div class="card-body">
+            <div class="card-body">
+                
+                <div class="form-group">
+                    <label>Feedback Message</label>
+                    <textarea rows="6" class="form-control" placeholder="Leave Reason" name="feedback_message"></textarea>
+                  </div>
+              </div>
+          </div>
+          <!-- /.card-body -->
+    
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-block">Send Feedback</button>
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <p class="alert alert-success btn-block mt-2">{{message}}</p>
+            {% elif message.tags == 'error' %}
+            <p class="alert alert-danger btn-block mt-2">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+          
+        {% endif %}
+          </div>
+          
+        </form>
+
+        <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Leave Application History</h3>
+            </div>
+        <div class="card-body table-responsive">
+            <table class="table table-bordered table-hover text-nowrap text-center">
+              <thead>                  
+                <tr>
+                  <th>ID</th>
+                  <th>Feedback Messages</th>
+                  <th>Feedback Reply</th>
+                </tr>
+              </thead>
+              <tbody>
+                  {% for feedback in feedback_status %}
+                <tr>
+                  <td>{{feedback.id}}</td>
+                  <td>{{feedback.feedback}}</td>
+                  <td>{{feedback.reply}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          </div>
+      </div>
+</div>
+{% endblock%}  

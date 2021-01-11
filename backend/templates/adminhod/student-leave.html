@@ -1,0 +1,47 @@
+{% extends 'adminhod/admin-base.html'%}
+{% block main_content %}
+<div class="col-md-12">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title"> Student Leave</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive">
+        <table class="table table-bordered table-hover text-nowrap">
+          <thead>                  
+            <tr>
+                <th>ID</th>
+                <th>Leave Date</th>
+                <th>Leave Messages</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+                {% for leave in leave_status %}
+              <tr>
+                <td>{{leave.id}}</td>
+                <td>{{leave.leave_date}}</td>
+                <td>{{leave.leave_message}}</td>
+                {% if leave.leave_status == 0 %}
+                <td>
+                    <a href="{% url 'student_leave_approve' id=leave.id %}" class="btn btn-warning">Approve</a>
+                    <a href="{% url 'student_leave_reject' id=leave.id %}" class="btn btn-danger">Reject</a>
+                </td>
+                {% elif leave.leave_status == 1 %}
+                <td>
+                  <a class="btn btn-success">Approved</a>
+                </td>
+                {% else %}
+                <td>
+                  <a class="btn btn-danger">Rejected</a>
+                </td>
+                {% endif %}
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+</div>    
+{% endblock%} 

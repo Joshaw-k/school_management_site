@@ -1,0 +1,41 @@
+{% extends 'adminhod/admin-base.html'%}
+{% block main_content %}
+<div class="col-md-12">
+    <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Add Session Year</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form method="POST" role="form">
+            {% csrf_token %}
+          <div class="card-body">
+            <div class="form-group">
+              <label>Session Start Year</label>
+              <input type="date" class="form-control" placeholder="Enter Subject Name" name="session-start-year">
+            </div>
+            <div class="form-group">
+                <label>Session End Year</label>
+                <input type="date" class="form-control" placeholder="Enter Subject Name" name="session-end-year">
+              </div>
+          </div>
+          <!-- /.card-body -->
+    
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-block">Add Session Year</button>
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <p class="alert alert-success btn-block mt-2">{{message}}</p>
+            {% elif message.tags == 'error' %}
+            <p class="alert alert-danger btn-block mt-2">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+          
+        {% endif %}
+          </div>
+          
+        </form>
+      </div>
+</div>
+{% endblock%}  

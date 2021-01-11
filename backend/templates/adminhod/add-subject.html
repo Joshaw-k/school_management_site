@@ -1,0 +1,53 @@
+{% extends 'adminhod/admin-base.html'%}
+{% block main_content %}
+<div class="col-md-12">
+    <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Add Course</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form method="POST" role="form">
+            {% csrf_token %}
+          <div class="card-body">
+            <div class="form-group">
+              <label>Subject Name</label>
+              <input type="text" class="form-control" placeholder="Enter Subject Name" name="subject">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Course Name</label>
+                <select class="form-control" name="course">
+                    {% for course in courses %}
+                    <option value="{{course.id}}">{{course}}</option>
+                    {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Staff Name</label>
+                <select class="form-control" name="staff">
+                    {% for staff in staffs %}
+                    <option value="{{staff.id}}">{{staff}}</option>
+                    {% endfor %}
+                </select>
+              </div>
+          </div>
+          <!-- /.card-body -->
+    
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-block">Add Subject</button>
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <p class="alert alert-success btn-block mt-2">{{message}}</p>
+            {% elif message.tags == 'error' %}
+            <p class="alert alert-danger btn-block mt-2">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+          
+        {% endif %}
+          </div>
+          
+        </form>
+      </div>
+</div>
+{% endblock%}  

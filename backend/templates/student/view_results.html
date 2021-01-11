@@ -1,0 +1,40 @@
+{% extends 'student/student-base.html'%}
+{% block main_content %}
+<div class="col-md-12">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">View Results</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive">
+        <table class="table table-bordered table-hover text-nowrap">
+          <thead>                  
+            <tr>
+              <th>ID</th>
+              <th>Subject</th>
+              <th>Assignment Mark</th>
+              <th>Exam Mark</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for student_result in student_results %}
+            <tr> 
+              <td>{{student_result.id}}</td> 
+              <td>{{student_result.subject}}</td>
+              <td>{{student_result.student_assignment_result}}</td>
+              <td>{{student_result.student_exam_result}}</td>
+              {% if student_result.student_exam_result >= 40 %}
+              <td><span class="alert alert-success">Passed</span></td>
+              {% else %}
+              <td><span class="alert alert-danger">Failed</span></td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+</div>    
+{% endblock%}  

@@ -1,0 +1,95 @@
+{% extends 'adminhod/admin-base.html'%}
+{% block main_content %}
+<div class="col-md-12">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Staff Notifications</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive">
+        <table class="table table-bordered table-hover text-nowrap">
+          <thead>                  
+            <tr>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for staff in staffs %}
+            <tr>
+              <td>{{staff.user.id}}</td>
+              <td>{{staff.user.first_name}}</td>
+              <td>{{staff.user.last_name}}</td>
+              <td>{{staff.user.username}}</td>
+              <td>{{staff.user.email}}</td>
+              <td><a href="#" class="btn btn-success send_notification" data-toggle="modal" data-target="#myModal">send notification</a></td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+</div> 
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <h4 class="modal-title">send notification to <span id="name_span"></span></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <textarea id="message" class="form-control" name="message"></textarea>
+          <input type="hidden" class="form-control" id="staff_id" name="staff_id" />
+        </div>
+      <div class="form-group">
+          <button class="btn btn-info btn-block show_notification" type="button">Send notification</button>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>      
+{% endblock%}  
+{% block custom_js %}
+<script>
+    $(document).ready(function(){
+      $(".send_notification").click(function() {
+        let staff_id = $(this).parents("tr").children("td:eq(0)").text();
+        let staff_username = $(this).parents("tr").children("td:eq(3)").text();
+        $("#staff_id").val(staff_id);
+        $("#name_span").text(staff_username);
+        $(document).on("click",".show_notification",function() {
+          let staff_id_data = $("#staff_id").val();
+          let message = $("#message").val()
+          
+          $.ajax(
+                {
+                    url:"{% url 'send_staff_message' %}",
+                    type:'POST',
+                    data:{staff_id:staff_id_data,message:message}
+                }
+            ).done((response) => {
+               console.log(response);
+               location.reload()
+            }).fail(() => {
+                alert('couldnot send message')
+            })
+        })
+        
+
+      })
+    })
+</script>
+{% endblock %}  

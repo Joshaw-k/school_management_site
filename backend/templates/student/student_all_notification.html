@@ -1,0 +1,28 @@
+{% extends 'student/student-base.html'%}
+{% block main_content %}
+<div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Manage Students</h3>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive">
+        <table class="table table-bordered table-hover text-nowrap">
+          <thead>                  
+            <tr>
+              <th>Notification</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for staff in notification %}
+            <tr>
+              <td>{{staff.message}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+</div> 
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'student/student-base.html'%}
+{% block main_content %}
+<div class="col-md-12">
+    <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">View Attendance</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form action="{% url 'view_attendance_student_data'%}" method="POST" role="form">
+            {% csrf_token %}
+          <div class="card-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Subject Name</label>
+                <select class="form-control" name="subject" id="subject">
+                    {% for subject in subjects %}
+                    <option value="{{subject.id}}">{{subject.subject_name}}</option>
+                    {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Session Year</label>
+                <select class="form-control" name="session_year" id="session_year">
+                    {% for session in session_years %}
+                    <option value="{{session.id}}">{{session}}</option>
+                    {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block" id="fetch-attendance">Fetch Attendance</button>
+    
+              </div>
+          </div>
+        </form>
+      </div>
+</div>
+{% endblock%} 

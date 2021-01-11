@@ -1,0 +1,189 @@
+{% load static%}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">Admin</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block">{{user.username}}</a>
+        </div>
+      </div>
+      {% url 'add-staff' as add_staff %}
+      {% url 'admin_home' as admin_home %}
+      {% url 'manage-staff' as manage_staff %}
+      {% url 'edit-staff' id=id as edit_staff %}
+      {% url 'add-student' as add_student %}
+      {% url 'manage-student' as manage_student %}
+      {% url 'edit-student' id=id as edit_student %}
+      {% url 'add-course' as add_course %}
+      {% url 'manage-course' as manage_course %}
+      {% url 'edit-course' id=id as edit_course %}
+      {% url 'add-subject' as add_subject %}
+      {% url 'manage-subject' as manage_subject %}
+      {% url 'manage-session' as manage_session %}
+      {% url 'manage-session' as manage_session %}
+      {% url 'staff_message_reply' as staff_message_reply %}
+      {% url 'student_message_reply' as student_message_reply %}
+      {% url 'student_leave' as student_leave %}
+      {% url 'staff_leave' as staff_leave %}
+      {% url 'edit-subject' id=id as edit_subject %}
+      {% url 'admin_personal_info' as admin_personal_info %}
+      {% url 'send_staff_notification' as send_staff_notification %}
+      {% url 'send_student_notification' as send_student_notification %}
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+               <li class="nav-item">
+                <a href="{{admin_home}}" class="nav-link {% if request.path == admin_home %}active{% endif %}">
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    Home
+                  </p>
+                </a>
+              </li>
+               <li class="nav-item">
+                <a href="{{admin_personal_info}}" class="nav-link {% if request.path == admin_personal_info %}active{% endif %}">
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    admin personal info
+                  </p>
+                </a>
+              </li>
+          <li class="nav-item">
+            <a href="{{add_staff}}" class="nav-link {% if request.path == add_staff %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Staff
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{manage_staff}}" class="nav-link {% if request.path == manage_staff %}active{% endif %}{% if request.path == edit_staff %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Staff
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{add_student}}" class="nav-link {% if request.path == add_student %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Student
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{manage_student}}" class="nav-link {% if request.path == manage_student %}active{% endif %}{% if request.path == edit_student %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Students
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{add_course}}" class="nav-link {% if request.path == add_course %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Course
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{manage_course}}" class="nav-link {% if request.path == manage_course %}active{% endif %}{% if request.path == edit_course %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Course
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{add_subject}}" class="nav-link {% if request.path == add_subject %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Add Subject
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{manage_subject}}" class="nav-link {% if request.path == manage_subject %}active{% endif %}{% if request.path == edit_subject %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Subject
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{manage_session}}" class="nav-link {% if request.path == manage_session %}active{% endif %}{% if request.path == edit_session %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Manage Session Year
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{staff_message_reply}}" class="nav-link {% if request.path == staff_message_reply %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                staff messages
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{student_message_reply}}" class="nav-link {% if request.path == student_message_reply %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                student messages
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{student_leave}}" class="nav-link {% if request.path == student_leave %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                student leave
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{staff_leave}}" class="nav-link {% if request.path == staff_leave %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                staff leave
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{send_staff_notification}}" class="nav-link {% if request.path == send_staff_notification %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                send staff notifications
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{send_student_notification}}" class="nav-link {% if request.path == send_student_notification %}active{% endif %}">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                send student notifications
+              </p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>

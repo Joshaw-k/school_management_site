@@ -1,0 +1,61 @@
+{% extends 'student/student-base.html'%}
+{% block main_content %}
+<div class="col-md-12">
+    <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">Student Personal Info</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form method="POST" action="{% url 'edit_student_personal_info'%}" role="form">
+            {% csrf_token %}
+          <div class="card-body">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email" value="{{student.user.email}}">
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Username</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="username" value="{{student.user.username}}">
+              </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">First Name</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="firstname" value="{{student.user.first_name}}">
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Last Name</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="lastname" value="{{student.user.last_name}}">
+                <input type="hidden" name="student_id" value="{{student.user.id}}">
+              </div> 
+              <div class="form-group">
+                <label>Gender</label>
+                <select class="form-control" name="gender">
+                  <option value="male" {% if "male" == student.gender %} selected {% endif %}>Male</option>
+                  <option value="female" {% if "female" == student.gender %} selected {% endif %}>Female</option>
+              </select>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Address</label>
+                <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="address" value="{{student.address}}">
+              </div>
+          </div>
+          <!-- /.card-body -->
+    
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-block">update</button>
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.tags == 'success' %}
+            <p class="alert alert-success btn-block mt-2">{{message}}</p>
+            {% elif message.tags == 'error' %}
+            <p class="alert alert-danger btn-block mt-2">{{message}}</p>
+            {% endif %}
+            {% endfor %}
+          
+        {% endif %}
+          </div>
+          
+        </form>
+      </div>
+</div>
+{% endblock%}  

@@ -1,0 +1,62 @@
+{% extends 'student/student-base.html'%}
+{% block custom_css %}
+<style>
+  .attendance_div_red {
+      padding: 10px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      background: #f44336;
+      border: 10px solid white;
+      text-align: center;
+      color: #fff;
+      border-radius: 30px;
+      box-shadow: 1px 1px 1px grey;
+      margin-top: 10px;
+      margin-bottom: 10px;
+  }
+  .attendance_div_green {
+      padding: 10px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      background: #388e3c;
+      border: 10px solid white;
+      text-align: center;
+      color: #fff;
+      border-radius: 30px;
+      box-shadow: 1px 1px 1px grey;
+      margin-top: 10px;
+      margin-bottom: 10px;
+  }
+  </style>
+{% endblock%}
+{% block main_content %}
+<div class="col-md-12">
+    <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">View Attendance</h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                    {% for attend in attendance_report_data %}
+                    {% if attend.status %}
+                    <div class="col-md-3 attendance_div_green">
+                      <b>Date: {{attend.date}}</b><br>
+                      <b>[Status : Present]</b>
+                    </div>
+                      {% else %}
+                      <div class="col-md-3 attendance_div_red">
+                        <b>Date: {{attend.date}}</b><br>
+                      <b>[Status : Absent]</b>
+                    </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                </div>
+            </div>
+          </div>
+        
+      </div>
+</div>
+{% endblock%} 

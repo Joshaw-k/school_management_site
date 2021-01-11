@@ -1,0 +1,121 @@
+{% extends 'staff/staff-base.html'%}
+{% block main_content %}
+<div class="col-md-12">
+    <div class="card card-primary">
+        <div class="card-header">
+          <h3 class="card-title">edit student result</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form method="POST" role="form">
+            {% csrf_token %}
+          <div class="card-body">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Subject Name</label>
+                <select class="form-control" name="subject" id="subject">
+                    {% for subject in subjects %}
+                    <option value="{{subject.id}}">{{subject.subject_name}}</option>
+                    {% endfor %}
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Session Year</label>
+                <select class="form-control" name="session_year" id="session_year">
+                    {% for session in session_years %}
+                    <option value="{{session.id}}">{{session}}</option>
+                    {% endfor %}
+                </select>
+              </div>
+              <div class='form-group'>
+                  <label>Student List :</label>
+                  <select class='form-control' name='student_list' id='student_list'></select>
+                </div>
+          </div>
+          <!-- /.card-body -->
+    
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary btn-block" id="fetch-students">Fetch Result</button>
+            <div id="student_result"></div>
+          </div>
+          
+          
+        </form>
+      </div>
+</div>
+{% endblock%} 
+{% block custom_js%}
+<script>
+    $(document).ready(function(){
+
+        fetch_students();
+        $("#subject").change(function(){
+            fetch_students();
+        })
+
+        $("#session_year").change(function(){
+            fetch_students();
+        })
+        
+        function fetch_students() {
+            let subject = $('#subject').val()
+            let session_year = $('#session_year').val()
+            $.ajax(
+                {
+                    url:"{% url 'get_student_for_result' %}",
+                    type:'POST',
+                    data:{subject_data:subject,session_year_data:session_year}
+                }
+            ).done((response) => {
+                let json_data = JSON.parse(response);
+                let div_data = "";
+                for(key in json_data){
+                    div_data += "<option  value="+json_data[key]['ID']+">"+json_data[key]['student_name']+"</option>";
+                }
+                $("#student_list").html(div_data);
+            }).fail(() => {
+                alert('couldnot fetch students')
+            })
+        }
+
+        $("#fetch-students").click(function(e){
+            e.preventDefault();
+            let subject = $('#subject').val()
+            let student_obj = $("#student_list").val()
+
+            $.ajax(
+                {
+                    url:"{% url 'fetch_student_result' %}",
+                    type:'POST',
+                    data:{subject_data:subject,student_obj:student_obj}
+                }
+            ).done((response) => {
+                let json_data = JSON.parse(response);
+                let div_data = "<div class='form-group mt-2'><label>Assignment Mark :</label><input id='assignment_mark' value="+json_data['assignment_mark']+" class='form-control' type='text' /> </div><div class='form-group'><label>Exam Mark :</label><input id='exam_mark' value="+json_data['exam_mark']+" class='form-control' type='text' /> </div> <button type='submit' class='btn btn-primary btn-block' id='save_student_result'>Save Result Data</button>";
+                
+                $("#student_result").html(div_data);
+            }).fail(() => {
+                alert('No result added')
+            })
+        })
+        $(document).on("click","#save_student_result",function(e){
+            e.preventDefault();
+            let subject = $('#subject').val()
+            let student_obj = $("#student_list").val()
+            let assignment_mark = $("#assignment_mark").val()
+            let exam_mark = $("#exam_mark").val()
+            $.ajax(
+                {
+                    url:"{% url 'save_edited_student_result' %}",
+                    type:'POST',
+                    data:{subject_data:subject,student_obj:student_obj,assignment_mark:assignment_mark,exam_mark:exam_mark}
+                }
+            ).done((response) => {
+                alert("Student result has been saved");
+                location.reload();
+            }).fail(() => {
+                alert('couldnot save result')
+            })
+        })
+    })
+</script>
+{% endblock%} 

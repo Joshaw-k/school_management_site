@@ -1,0 +1,93 @@
+{% extends 'adminhod/admin-base.html'%}
+{% block main_content %}
+<div class="col-md-12">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title"> Staff Message Reply</h3>
+      </div>
+      <div id="myModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" style="color: #ed563b;">Staff Message Reply</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST">
+                      <div class="form-group">
+                        <label style="color: #ed563b;">Replying: <span id="name_reply" style="color: #000;"></span></label>
+                        <input type="hidden" class="form-control" id="id_data" name="id_data">
+                        <textarea class="form-control" rows="4" id="message"></textarea>
+                      </div>
+                      <button id="reply_send" style="background-color: #ed563b;color:white" class="btn btn-block">Reply</button>
+                    {% csrf_token%}
+                  </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body table-responsive">
+        <table class="table table-bordered table-hover text-nowrap">
+          <thead>                  
+            <tr>
+              <th>ID</th>
+              <th>Staff ID</th>
+              <th>Staff Name</th>
+              <th>Staff Message</th>
+              <th>Sent On</th>
+              <th>Reply</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for feedback in feedbacks %}
+            <tr>
+              <td>{{feedback.id}}</td>
+              <td>{{feedback.staff.id}}</td>
+              <td>{{feedback.staff.user.first_name}} {{feedback.staff.user.last_name}}</td>
+              <td>{{feedback.feedback}}</td>
+              <td>{{feedback.created_at}}</td>
+              {% if feedback.reply == "" %}
+              <td><button data-toggle="modal" data-target="#myModal" class="btn btn-success reply ">reply</button></td>
+              {% else %}
+              <td>{{feedback.reply}}</td>
+              {% endif %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <!-- /.card-body -->
+    </div>
+</div>    
+{% endblock%} 
+{% block custom_js %}
+<script>
+  $(document).ready(function(){
+    $('.reply').click(function(){
+      let id = $(this).parents('tr').children('td:eq(0)').text();
+    let name = $(this).parents('tr').children('td:eq(2)').text();
+    let id_data = $('#id_data').val(id)
+    let replier = $('#name_reply').text(name)
+    console.log(id);
+    console.log(name);
+    $(document).on('click','#reply_send',function(){
+      let id_data = $('#id_data').val()
+      let message = $('#message').val()
+      $.ajax({
+        url:"{% url 'staff_message_reply_get' %}",
+        type:'POST',
+        data:{id:id_data,message:message}
+      }).done((response) => {
+        console.log(response)
+        location.reload();
+      }).fail(() => {
+        alert("kole work oo")
+      })
+    })  
+    })
+  })
+</script>
+{% endblock %} 
